@@ -32,7 +32,6 @@ public class BlinkArduinoDemo extends ArduinoManager {
 
     public DeviceConnection setup() {
         led = new Device(1, Device.DIGITAL);
-        addDevice(led);
         return Connections.out.usb();
     }
 

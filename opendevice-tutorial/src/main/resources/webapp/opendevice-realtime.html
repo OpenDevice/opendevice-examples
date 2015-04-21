@@ -13,47 +13,32 @@
     <script type="text/javascript" src="/js/opendevice.js"></script> <!-- mvn:dependency -->
 
     <script>
-        // if (mvn dependency) not found
-        if(typeof od == "undefined")
-            document.write('<script src="https://rawgit.com/OpenDevice/OpenDevice/master/opendevice-clients/opendevice-js/dist/js/opendevice.js">\x3C/script>');
-    </script>
-
-    <script>
         if(typeof od == "undefined") alert("opendevice.js not loaded !");
 
         var devices = [];
 
         // OpenDevice.setAppID("app-demo-1");
-        OpenDevice.setServer('http://'+window.location.host); // this is default !!
-
-        OpenDevice.on(od.Event.CONNECTED, function(){
-            devices = OpenDevice.getDevices();
-            console.log('loaded: ', devices);
-            createButtons(devices);
-        });
-
-        OpenDevice.on(od.Event.DEVICE_CHANGED, function(data){
-            updateView(data);
-            userLogic(data);
-        });
+        // OpenDevice.setServer('http://'+window.location.host); // this is default !!
 
         $(function(){ // on load.
-            OpenDevice.connect();
-        });
 
-        function userLogic(device){
+            OpenDevice.connect(function(devices){
+                console.log('loaded: ', devices);
+                createButtons(devices);
+            });
 
-            if(device && device.sensor){
-                var led = OpenDevice.findDevice(device.id - 3);
-                // led.setValue(device.value); // Send command and fire DEVICE_CHANGED
+            OpenDevice.onDeviceChange(function(device){
 
-                if(device.id == 5){
-                    OpenDevice.findDevice(10).setValue(device.value);
-                    // OpenDevice.setValue(10, );
+                updateView(device);
+
+                if(device.sensor){
+                    if(device.id == 5){
+                        OpenDevice.findDevice(1).setValue(device.value);
+                    }
                 }
-            }
+            });
 
-        }
+        });
 
         function toggleValue(deviceID){
             OpenDevice.toggleValue(deviceID);

@@ -85,9 +85,9 @@
 									<artifactId>opendevice-js</artifactId>
 									<version>${opendevice-version}</version>
 									<type>war</type>
-									<overWrite>false</overWrite>
-									<outputDirectory>${project.build.directory}/classes/webapp</outputDirectory>
-									<includes>**/*.css,**/*.js</includes>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.basedir}/src/main/resources/webapp</outputDirectory>
+									<includes>js/**.js</includes>
 								</artifactItem>
 							</artifactItems>
 <!-- 							<outputDirectory>${project.build.directory}/wars</outputDirectory> -->
@@ -99,33 +99,44 @@
 			</plugin>
 		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-dependency-plugin</artifactId>
-										<versionRange>[2.9,)</versionRange>
-										<goals><goal>unpack</goal></goals>
-									</pluginExecutionFilter>
-									<action><ignore></ignore></action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
-
+	<profiles>
+		<profile>
+			<id>only-eclipse</id>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<configuration>
+									<lifecycleMappingMetadata>
+										<pluginExecutions>
+											<pluginExecution>
+												<pluginExecutionFilter>
+													<groupId>org.apache.maven.plugins</groupId>
+													<artifactId>maven-dependency-plugin</artifactId>
+													<versionRange>[2.9,)</versionRange>
+													<goals><goal>unpack</goal></goals>
+												</pluginExecutionFilter>
+												<action><ignore></ignore></action>
+											</pluginExecution>
+										</pluginExecutions>
+									</lifecycleMappingMetadata>
+								</configuration>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
 </project>

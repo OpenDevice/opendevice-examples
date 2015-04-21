@@ -20,15 +20,11 @@
         if(typeof od == "undefined") alert("opendevice.js not loaded !");
 
         // OpenDevice.setAppID("app-demo-1");
-        OpenDevice.setServer('http://'+window.location.host); // this is default !!
+        // OpenDevice.setServer('http://'+window.location.host); // this is default !!
 
-        OpenDevice.on(od.Event.CONNECTED, function(){
-            console.log('CONNECTED: ');
-        });
-
-        OpenDevice.on(od.Event.DEVICE_CHANGED, function(data){
-            if(data.id == 6){
-                updateChart(data.value);
+        OpenDevice.onDeviceChange(function(device){
+            if(device.id == 6){
+                updateChart(device.value);
             }
         });
 

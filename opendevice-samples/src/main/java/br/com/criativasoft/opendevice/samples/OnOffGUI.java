@@ -14,11 +14,10 @@
 package br.com.criativasoft.opendevice.samples;
 
 import br.com.criativasoft.opendevice.connection.DeviceConnection;
-import br.com.criativasoft.opendevice.core.SimpleDeviceManager;
+import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.command.DeviceCommand;
 import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.samples.ui.FormController;
-import br.com.criativasoft.opendevice.webclient.WebSocketClientConnection;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +28,7 @@ import java.awt.event.ActionListener;
  * For arduino/energia use: opendevice-hardware-libraries/arduino/OpenDevice/examples/UsbConnection
  * For arduino(with bluetooth): opendevice-hardware-libraries/arduino/OpenDevice/examples/BluetoothConnection
  */
-public class OnOffGUI extends SimpleDeviceManager  {
+public class OnOffGUI extends LocalDeviceManager {
 
 	private FormController form;
     private DeviceConnection connection;

@@ -2,48 +2,55 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>br.com.criativasoft.opendevice</groupId>
-        <artifactId>opendevice-pom</artifactId>
-        <version>0.1.2-SNAPSHOT</version>
-    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>opendevice-samples</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-	<artifactId>opendevice-samples</artifactId>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <opendevice-version>0.1.2-SNAPSHOT</opendevice-version>
-	</properties>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>oss.sonatype.org-snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
 
 	<dependencies>
-		<dependency>
-			<groupId>br.com.criativasoft.opendevice</groupId>
-			<artifactId>opendevice-connection-stream</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>br.com.criativasoft.opendevice</groupId>
+            <artifactId>opendevice-connection-stream</artifactId>
+            <version>${opendevice-version}</version>
+        </dependency>
 
         <dependency>
             <groupId>br.com.criativasoft.opendevice</groupId>
             <artifactId>opendevice-core</artifactId>
-            <version>${project.version}</version>
+            <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
             <groupId>br.com.criativasoft.opendevice</groupId>
             <artifactId>opendevice-rest-ws-server</artifactId>
-            <version>${project.version}</version>
+            <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
             <groupId>br.com.criativasoft.opendevice</groupId>
             <artifactId>opendevice-wasync-client</artifactId>
-            <version>${project.version}</version>
+            <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
             <groupId>br.com.criativasoft.opendevice</groupId>
             <artifactId>opendevice-js</artifactId>
-            <version>${project.version}</version>
+            <version>${opendevice-version}</version>
             <type>war</type>
         </dependency>
 

@@ -1,8 +1,6 @@
-import br.com.criativasoft.opendevice.core.SimpleDeviceManager;
+import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceType;
-import br.com.criativasoft.opendevice.webclient.WebSocketClientConnection;
 
 /**
  *
@@ -13,7 +11,7 @@ import br.com.criativasoft.opendevice.webclient.WebSocketClientConnection;
  * @author Ricardo JL Rufino
  * @date 17/02/2014
  */
-public class BlinkDeviceDemo extends SimpleDeviceManager {
+public class BlinkDeviceDemo extends LocalDeviceManager {
 
     public static void main(String[] args) throws Exception {
         new BlinkDeviceDemo();
@@ -21,10 +19,9 @@ public class BlinkDeviceDemo extends SimpleDeviceManager {
 
     public BlinkDeviceDemo() throws Exception {
 
-        Device led = new Device(1, Device.DIGITAL);
+        Device led = new Device(2, Device.DIGITAL);
 
-        connect(Connections.out.usb());
-        // connect(Connections.out.bluetooth("00:11:06:14:04:57"));
+        connect(Connections.out.bluetooth("00:11:06:14:04:57"));
 
         while(true){
             led.on();

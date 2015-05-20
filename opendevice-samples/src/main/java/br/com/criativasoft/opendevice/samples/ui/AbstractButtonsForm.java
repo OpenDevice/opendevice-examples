@@ -19,9 +19,9 @@ import br.com.criativasoft.opendevice.connection.DeviceConnection;
 import br.com.criativasoft.opendevice.connection.exception.ConnectionException;
 import br.com.criativasoft.opendevice.connection.message.Message;
 import br.com.criativasoft.opendevice.core.DeviceManager;
-import br.com.criativasoft.opendevice.core.SimpleDeviceManager;
-import br.com.criativasoft.opendevice.core.command.CommandType;
+import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.command.DeviceCommand;
+import br.com.criativasoft.opendevice.core.command.GetDevicesResponse;
 import br.com.criativasoft.opendevice.core.model.Device;
 
 import javax.swing.*;
@@ -33,14 +33,12 @@ import java.util.Collection;
 
 
 // USE: OpenDevice Middleware in Arduino...
-public class FormDevicesAPIController extends JFrame implements ConnectionListener {
+public class AbstractButtonsForm extends JFrame implements ConnectionListener {
 
     private DeviceConnection connection;
-	private boolean state = false;
+    DeviceManager manager = new LocalDeviceManager();
 
-    DeviceManager manager = new SimpleDeviceManager();
-
-	public FormDevicesAPIController(DeviceConnection connection) throws ConnectionException {
+	public AbstractButtonsForm(DeviceConnection connection) throws ConnectionException {
 		this.init();
         this.setTitle("Controller (JavaSE)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +59,6 @@ public class FormDevicesAPIController extends JFrame implements ConnectionListen
     }
 
     public void addDevices(Collection<Device> devices){
-        manager.addDevices(devices);
         for (Device device : devices){
             SwitchButton switchButton = new SwitchButton(device);
             add(switchButton);
@@ -83,18 +80,19 @@ public class FormDevicesAPIController extends JFrame implements ConnectionListen
 
 			DeviceCommand deviceCommand = (DeviceCommand) message;
 
-
             Device device = manager.findDeviceByUID(deviceCommand.getDeviceID());
             if(device != null){
-
+                System.out.println("devoce commnad !!!!!!");
             }
-
 
         }
 
+        if(message instanceof GetDevicesResponse){
+            GetDevicesResponse response = (GetDevicesResponse) message;
+            Collection<Device> devices = response.getDevices();
+            addDevices(devices);
+        }
 
-
-		
 	}
 	
 	public void init(){
@@ -136,7 +134,7 @@ public class FormDevicesAPIController extends JFrame implements ConnectionListen
 						btn5.setText("Disconnect");
 					}
 				}catch (Exception ex) {
-                    JOptionPane.showMessageDialog(FormDevicesAPIController.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(AbstractButtonsForm.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 					ex.printStackTrace();
 				}
 			}

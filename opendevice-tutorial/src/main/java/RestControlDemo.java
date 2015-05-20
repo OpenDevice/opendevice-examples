@@ -1,8 +1,7 @@
-import br.com.criativasoft.opendevice.core.SimpleDeviceManager;
+import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
 import br.com.criativasoft.opendevice.core.model.DeviceListener;
-import br.com.criativasoft.opendevice.core.model.DeviceType;
 
 
 /**
@@ -18,7 +17,7 @@ import br.com.criativasoft.opendevice.core.model.DeviceType;
  * @author Ricardo JL Rufino
  * @date 17/02/2014
  */
-public class RestControlDemo extends SimpleDeviceManager implements DeviceListener {
+public class RestControlDemo extends LocalDeviceManager implements DeviceListener {
 
     public static void main(String[] args) throws Exception {
         new RestControlDemo();
@@ -29,7 +28,7 @@ public class RestControlDemo extends SimpleDeviceManager implements DeviceListen
         Device led = new Device(1, Device.DIGITAL);
 
         // setup connection with arduino/hardware
-        addOutput(Connections.out.usb()); // Connect to first USB port available
+        addOutput(Connections.out.bluetooth("00:11:06:14:04:57")); // Connect to first USB port available
 
         // Configure a Rest interface for receiving commands over HTTP
         addInput(Connections.in.rest(8181));

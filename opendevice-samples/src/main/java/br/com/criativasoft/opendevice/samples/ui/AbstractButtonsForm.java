@@ -28,12 +28,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Collection;
 
 
 // USE: OpenDevice Middleware in Arduino...
-public class AbstractButtonsForm extends JFrame implements ConnectionListener {
+public class AbstractButtonsForm extends JFrame implements ConnectionListener , KeyEventDispatcher {
 
     private DeviceConnection connection;
     DeviceManager manager = new LocalDeviceManager();
@@ -47,6 +49,7 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener {
         manager.addOutput(connection);
         connection.addListener(this);
     }
+
 
     public void connect(){
         try {
@@ -94,8 +97,23 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener {
         }
 
 	}
-	
-	public void init(){
+
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        if (e.getID() == KeyEvent.KEY_PRESSED) {
+
+            int id =  e.getKeyCode() - 48;
+            Device device = manager.findDeviceByUID(id);
+
+            if(device != null){
+                device.toggle();
+            }
+
+        }
+
+        return false;
+    }
+
+    public void init(){
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -108,13 +126,17 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener {
         final Collection<Device> devices = manager.getDevices();
 
 		final JButton btn5 = new JButton("Disconnect");
-        super.add (btn5);
+        super.add(btn5);
         this.setLocation(150, 150);
         
         this.setLayout(new FlowLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
+
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(this);
+
         
         btn5.addActionListener(new ActionListener() {
 			@Override

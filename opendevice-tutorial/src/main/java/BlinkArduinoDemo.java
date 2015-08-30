@@ -31,8 +31,8 @@ public class BlinkArduinoDemo extends ArduinoManager {
     Device led;
 
     public DeviceConnection setup() {
-        led = new Device(1, Device.DIGITAL);
-        return Connections.out.usb();
+        led = new Device(2, Device.DIGITAL);
+        return out.bluetooth("00:13:03:14:19:07");
     }
 
     public void loop() {

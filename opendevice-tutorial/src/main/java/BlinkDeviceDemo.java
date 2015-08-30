@@ -2,6 +2,8 @@ import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
 
+import java.io.IOException;
+
 /**
  *
  * Tutorial: https://opendevice.atlassian.net/wiki/display/DOC/A.+First+Steps+with+OpenDevice
@@ -13,15 +15,13 @@ import br.com.criativasoft.opendevice.core.model.Device;
  */
 public class BlinkDeviceDemo extends LocalDeviceManager {
 
-    public static void main(String[] args) throws Exception {
-        new BlinkDeviceDemo();
-    }
+    public static void main(String[] args) { launch(args); }
 
-    public BlinkDeviceDemo() throws Exception {
+    public void start() throws IOException {
 
-        Device led = new Device(2, Device.DIGITAL);
+        Device led = new Device(1, Device.DIGITAL);
 
-        connect(Connections.out.bluetooth("00:11:06:14:04:57"));
+        connect(out.usb()); // Connect to first USB port available
 
         while(true){
             led.on();
@@ -30,7 +30,6 @@ public class BlinkDeviceDemo extends LocalDeviceManager {
             delay(500);
         }
     }
-
 }
 
 

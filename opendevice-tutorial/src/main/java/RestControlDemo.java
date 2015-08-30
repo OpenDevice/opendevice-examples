@@ -28,10 +28,10 @@ public class RestControlDemo extends LocalDeviceManager implements DeviceListene
         Device led = new Device(1, Device.DIGITAL);
 
         // setup connection with arduino/hardware
-        addOutput(Connections.out.bluetooth("00:11:06:14:04:57")); // Connect to first USB port available
+        addOutput(out.bluetooth("00:11:06:14:04:57")); // Connect to first USB port available
 
         // Configure a Rest interface for receiving commands over HTTP
-        addInput(Connections.in.rest(8181));
+        addInput(in.rest(8181));
 
         addListener(this); // monitor changes on devices
         connect();

@@ -35,7 +35,7 @@ public class OnOffGUI extends LocalDeviceManager {
 
 	public OnOffGUI() {
 
-        connection = Connections.out.bluetooth("001303141907"); // Connect to first USB port available
+        connection = Connections.out.bluetooth("00:13:03:14:19:07"); // Connect to first USB port available
 
         addOutput(connection);
 

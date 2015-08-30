@@ -34,18 +34,17 @@ public class PanelButtonsGUI extends AbstractButtonsForm {
 
     public PanelButtonsGUI() throws ConnectionException {
 
-//        super(Connections.out.bluetooth("00:11:06:14:04:57"));
-//        super(Connections.out.usb());
+//        super(Connections.out.usb("/dev/ttyACM1"));
+//        super(Connections.out.bluetooth("00:13:03:14:19:07"));
         super(Connections.out.websocket("localhost:8181"));
 
         Collection<Device> devices = new LinkedList<Device>();
-        devices.add(new Device(1,"RED", DeviceType.DIGITAL));
-        devices.add(new Device(2,"GREEN", DeviceType.DIGITAL));
-        devices.add(new Device(3,"BLUE", DeviceType.DIGITAL));
-        devices.add(new Sensor(4,"Sensor 1", DeviceType.DIGITAL));
-        devices.add(new Sensor(5,"Sensor 2", DeviceType.DIGITAL));
-
+        devices.add(new Device(1,"BLUE", DeviceType.DIGITAL));
+        devices.add(new Device(2,"YELLOW", DeviceType.DIGITAL));
+        devices.add(new Device(3,"RED", DeviceType.DIGITAL));
+        devices.add(new Device(4,"TESTE", DeviceType.DIGITAL));
         addDevices(devices);
+
         connect();
     }
 

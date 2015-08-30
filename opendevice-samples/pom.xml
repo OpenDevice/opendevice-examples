@@ -8,7 +8,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <opendevice-version>0.1.2-SNAPSHOT</opendevice-version>
+        <opendevice-version>[0.1.2-SNAPSHOT,)</opendevice-version>
     </properties>
 
     <repositories>
@@ -55,12 +55,6 @@
         </dependency>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
-            <artifactId>opendevice-js-engine</artifactId>
-            <version>${opendevice-version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.0.13</version>
@@ -86,8 +80,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
 

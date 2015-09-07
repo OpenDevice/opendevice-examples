@@ -1,7 +1,7 @@
 opendevice-3d-blender
 ==========================
 
-Sample application illustrating the integration between [OpenDevice][http://opendevice.io] and Blender  
+Sample application illustrating the integration between [OpenDevice](http://opendevice.io) and Blender  
 
 ![OpenDevice_Blender](./assets/splash.png)
 

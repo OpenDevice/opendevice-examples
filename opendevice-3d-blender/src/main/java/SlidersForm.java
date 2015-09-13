@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Run using IntelliJ or mvn:exec
  * @author Ricardo JL Rufino
  * @date 05/09/15
  */
@@ -89,7 +90,7 @@ public class SlidersForm {
 
     public static void main(String[] args) throws Exception {
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        JFrame frame = new JFrame("SlidersForm");
+        JFrame frame = new JFrame("Sliders - OpenDevice (Java)");
         frame.setContentPane(new SlidersForm().rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

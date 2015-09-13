@@ -42,3 +42,8 @@ Getting Started
     
     - Changes on sliders in OpenDevice (GUI) must change the fingers (TIP: check console logs)
 
+Videos
+---------------
+* [OpenDevice Python Client - Performance Test](https://www.youtube.com/watch?v=1h6N7G7cNpU ) 
+* [OpenDevice + Blender - Controlling Bones (from Java)](https://youtu.be/UzPGMdgCZIE)
+* [OpenDevice + Arduino + Blender](https://youtu.be/b3PbOPIMHmY)

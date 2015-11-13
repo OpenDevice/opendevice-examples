@@ -51,6 +51,10 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.13</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.thiagolocatelli</groupId>
+			<artifactId>parse4j</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
 </project>

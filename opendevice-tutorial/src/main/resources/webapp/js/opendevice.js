@@ -107,6 +107,22 @@ od.Device = function(data){
     this.sensor = data.sensor;
     this.manager = od.deviceManager;
 
+    this.on = function(){
+         this.setValue(1);
+    };
+
+    this.off = function(){
+         this.setValue(0);
+    };
+
+    this.isON = function(){
+        return (value == 1)
+    };
+
+    this.isOFF = function(){
+        return (value == 0)
+    };
+
     this.setValue = function(value){
         this.value = value;
 
@@ -115,12 +131,15 @@ od.Device = function(data){
         }
     };
 
-    this.toggleValue = function(){
+    this.toggle = function(){
         var value = 0;
         if(this.value == 0) value = 1;
         else if(this.value == 1) value = 0;
         this.setValue(value);
     }
+
+    /** @deprecated */
+    this.toggleValue = this.toggle;
 
 };/*
  * ******************************************************************************
@@ -301,7 +320,8 @@ od.DeviceConnection = function(config){
         try {
             data = JSON.parse(response.responseBody);
         }catch(err) {
-                console.error("Can't parse response. Error: " + err);
+            console.warn("Can't parse response: " + response.responseBody, err.stack);
+
         }
 
         if(data) {
@@ -386,6 +406,10 @@ od.DeviceManager = function(connection){
 
     };
 
+    this.send = function(cmd){
+        _this.connection.send(cmd);
+    }
+
     this.addDevice = function(){
         // Isso teria no final que salvar na EPROM/Servidor do arduino.
     };
@@ -396,7 +420,7 @@ od.DeviceManager = function(connection){
         if(devices && devices.length > 0) return devices; // return from cache...
 
         // load remote.
-        devices = sync(false);
+        devices = this.sync(false);
 
         return devices;
     };
@@ -418,9 +442,11 @@ od.DeviceManager = function(connection){
     /**
      * Sync Devices with server
      * @param {Boolean} notify - if true notify listeners
+     * @param {Boolean} forceSync - force sync with physical module
      * @returns {Array}
      */
-     function sync(notify){
+    this.sync = function(notify, forceSync){
+
 
         // try local storage
         devices =  _getDevicesLocalStorege();
@@ -428,6 +454,12 @@ od.DeviceManager = function(connection){
 
         // load remote.
         devices = _getDevicesRemote();
+
+        // fire sync (GetDeviceRequest) on server
+        if(forceSync || (devices && devices.length == 0)) {
+            // OpenDevice.devices.sync();
+            _this.send({type : CType.GET_DEVICES, forceSync : forceSync});
+        }
 
         if(notify === true) notifyListeners(DEvent.DEVICE_LIST_UPDATE, devices);
 
@@ -443,8 +475,16 @@ od.DeviceManager = function(connection){
         _this.addListener(event, listener);
     };
 
+    // FIXME: rename to onChange
     this.onDeviceChange = function (listener){
         _this.addListener(od.Event.DEVICE_CHANGED, listener);
+    };
+
+    this.onConnect = function (listener){
+        this.on(od.Event.CONNECTED, function(){
+            var devices = OpenDevice.getDevices();
+            if(listener) listener(devices);
+        });
     };
 
     this.addListener = function(event, listener){
@@ -543,6 +583,15 @@ od.DeviceManager = function(connection){
             // TODO: store changes localstore..
         }
 
+        // Force load new list from server
+        // TODO: It would be interesting if the devices list were already in response
+        if(message.type == CType.GET_DEVICES_RESPONSE){
+            // load remote.
+            var devices = _getDevicesRemote();
+
+            notifyListeners(DEvent.DEVICE_LIST_UPDATE, devices);
+        }
+
     }
 
     function updateDevice(message){
@@ -558,8 +607,7 @@ od.DeviceManager = function(connection){
         notifyListeners(DEvent.CONNECTION_CHANGE, newStatus);
 
         if(od.ConnectionStatus.CONNECTED == newStatus){
-            sync(true);
-            notifyListeners(DEvent.CONNECTED);
+            notifyListeners(DEvent.CONNECTED, _this.getDevices());
         }
 
         if(od.ConnectionStatus.CONNECTED == newStatus){
@@ -606,11 +654,15 @@ return {
     // Manager delegate
     on : manager.on,
     onDeviceChange : manager.onDeviceChange,
+    onChange : manager.onDeviceChange,
+    onConnect : manager.onConnect,
     findDevice : manager.findDevice,
     getDevices : manager.getDevices,
     setValue : manager.setValue,
     toggleValue : manager.toggleValue,
     contains : manager.contains,
+    sync : manager.sync,
+    send : manager.send,
 
     setAppID : function(appID){
         od.appID = appID;
@@ -620,13 +672,8 @@ return {
         od.serverURL = serverURL;
     },
 
-    connect : function(callback){
-
-        OpenDevice.on(od.Event.CONNECTED, function(){
-            var devices = OpenDevice.getDevices();
-            if(callback) callback(devices);
-        });
-
+    connect : function(_conn){
+        if(_conn) connection = _conn;
         connection.connect();
     },
 
@@ -637,13 +684,18 @@ return {
                 headers : {
                     'X-AppID' : od.appID
                 },
-                async: false
+                async: false // FIXME: isso não é recomendado...
         }).responseText;
 
-        // TODO: fazer tratamento dos possíveis erros (como exceptions e servidor offline)
+        // TODO: fazer tratamento dos possíveis erros (como exceptions e servidor offline ou 404)
 
-        return JSON.parse(response);
+        if(response.length > 0){
+            return JSON.parse(response)
+        }else{
+            return null;
+        }
     },
+
 
     history : function(query, callback){
         jQuery.ajax({
@@ -712,6 +764,8 @@ return {
 })();
 
 
+var ODev = OpenDevice;
+
 /**
  * REST Interface: Devices
  */
@@ -733,8 +787,12 @@ OpenDevice.devices = {
         }
     },
 
-    list : function(deviceID){
+    list : function(){
         return OpenDevice.rest(OpenDevice.devices.path + "/list");
+    },
+
+    sync : function(){
+        return OpenDevice.rest(OpenDevice.devices.path + "/sync");
     }
 
 };

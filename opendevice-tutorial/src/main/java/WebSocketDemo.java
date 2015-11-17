@@ -1,9 +1,5 @@
 import br.com.criativasoft.opendevice.connection.IWSServerConnection;
-import br.com.criativasoft.opendevice.connection.discovery.DiscoveryService;
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
-import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceType;
-import br.com.criativasoft.opendevice.core.model.Sensor;
 
 import java.io.File;
 
@@ -47,8 +43,8 @@ public class WebSocketDemo extends LocalDeviceManager {
 
         connect(); // Connects all configured connections
 
-        // Enable discovery service  (Allows clients automatically find that server
-        DiscoveryService.listen(8181);
+        // Enable discovery service  (Allows clients automatically find this server
+        getDiscoveryService().listen(8181);
     }
 
 

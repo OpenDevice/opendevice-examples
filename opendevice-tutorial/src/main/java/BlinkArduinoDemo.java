@@ -15,7 +15,6 @@
 
 import br.com.criativasoft.opendevice.connection.DeviceConnection;
 import br.com.criativasoft.opendevice.core.ArduinoManager;
-import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
 
 /**
@@ -31,8 +30,8 @@ public class BlinkArduinoDemo extends ArduinoManager {
     Device led;
 
     public DeviceConnection setup() {
-        led = new Device(2, Device.DIGITAL);
-        return out.bluetooth("00:13:03:14:19:07");
+        led = new Device(1, Device.DIGITAL);
+        return out.usb();
     }
 
     public void loop() {

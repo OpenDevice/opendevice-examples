@@ -20,16 +20,14 @@ public class BlinkCommandDemo implements ConnectionListener {
         DeviceConnection conn = Connections.out.usb();
         conn.addListener(this);
         conn.connect();
-        long delay = 500;
 
         while(conn.isConnected()) {
-            conn.send(DeviceCommand.ON(1)); // '1' is Device ID not pin !
-            Thread.sleep(delay);
+            conn.send(DeviceCommand.ON(1)); // '1' is DeviceID
+            Thread.sleep(500);
             conn.send(DeviceCommand.OFF(1));
-            Thread.sleep(delay);
+            Thread.sleep(500);
         }
 
-        System.out.println("TERMINATED !");
     }
 	
 	public static void main(String[] args) throws Exception {

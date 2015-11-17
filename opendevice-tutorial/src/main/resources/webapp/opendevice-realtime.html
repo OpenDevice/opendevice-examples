@@ -20,29 +20,30 @@
         // OpenDevice.setAppID("app-demo-1");
         // OpenDevice.setServer('http://'+window.location.host); // this is default !!
 
-        $(function(){ // on load.
+        $(function(){ // JQuery ready()
+            ODev.connect();
+        });
 
-            OpenDevice.connect(function(devices){
-                console.log('loaded: ', devices);
-                createButtons(devices);
-            });
 
-            OpenDevice.onDeviceChange(function(device){
+        ODev.onConnect(function(devices){
+            console.log('loaded: ', devices);
+            createButtons(devices);
+        });
 
-                updateView(device);
+        ODev.onChange(function(device){
 
-                if(device.sensor){
-                    if(device.id == 5){
-                        OpenDevice.findDevice(1).setValue(device.value);
-                    }
+            updateView(device);
+
+            if(device.sensor){
+                if(device.id == 5){
+                    ODev.findDevice(1).setValue(device.value);
                 }
-            });
-
+            }
         });
 
         function toggleValue(deviceID){
-            OpenDevice.toggleValue(deviceID);
-            updateView(OpenDevice.findDevice(deviceID));
+            ODev.toggleValue(deviceID);
+            updateView(ODev.findDevice(deviceID));
         }
 
         /** Create HTML */
@@ -92,9 +93,6 @@
     <div id="chart"  style="width: 100%; height: 400px"></div>
 
 </div>
-
-
-
 
 
 </body>

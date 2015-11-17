@@ -17,20 +17,21 @@
 
 
     <script>
-        if(typeof od == "undefined") alert("opendevice.js not loaded !");
+        if(typeof od == "undefined") alert("OpenDevice.js not loaded !");
 
-        // OpenDevice.setAppID("app-demo-1");
-        // OpenDevice.setServer('http://'+window.location.host); // this is default !!
+        // ODev.setAppID("app-demo-1");
+        // ODev.setServer('http://'+window.location.host); // this is default !!
 
-        OpenDevice.onDeviceChange(function(device){
-            if(device.id == 6){
+        $(function(){ // on load.
+            ODev.connect();
+        });
+
+        ODev.onDeviceChange(function(device){
+            if(device.id == 6 || device.id == 5){
                 updateChart(device.value);
             }
         });
 
-        $(function(){ // on load.
-            OpenDevice.connect();
-        });
 
     </script>
 

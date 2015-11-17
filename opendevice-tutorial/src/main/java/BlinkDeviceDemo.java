@@ -1,5 +1,4 @@
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
-import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
 
 import java.io.IOException;
@@ -23,6 +22,9 @@ public class BlinkDeviceDemo extends LocalDeviceManager {
 
         connect(out.usb()); // Connect to first USB port available
 
+        // FIXME Não está desconnectando o TCP....
+        // Quando desabilita a WIFI do PC, ele não detectou.
+        // Quando o Modulo cancela a cexçao, fica dando erro.
         while(true){
             led.on();
             delay(500);

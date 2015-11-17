@@ -16,7 +16,6 @@ import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
 import br.com.criativasoft.opendevice.core.model.DeviceListener;
 import br.com.criativasoft.opendevice.core.model.DeviceType;
-import br.com.criativasoft.opendevice.core.model.Sensor;
 
 import java.io.IOException;
 
@@ -29,13 +28,10 @@ public class CubesDemo extends LocalDeviceManager {
     @Override
     public void start() throws IOException {
 
-//
         addDevice(new Device(1, DeviceType.DIGITAL));
         addDevice(new Device(2, DeviceType.DIGITAL));
         addDevice(new Device(3, DeviceType.DIGITAL));
-        addDevice(new Sensor(4, DeviceType.DIGITAL));
-        addDevice(new Sensor(5, DeviceType.DIGITAL));
-
+        addDevice(new Device(4, DeviceType.DIGITAL));
 
         addListener(new DeviceListener() {
             @Override
@@ -47,8 +43,8 @@ public class CubesDemo extends LocalDeviceManager {
 
         addInput(Connections.in.tcp(8182));
 
-        connect(Connections.out.bluetooth("00:11:06:14:04:57"));
-        // connect(Connections.out.usb());
+        connect(Connections.out.bluetooth("00:13:03:14:19:07"));
+//         connect(Connections.out.usb());
     }
 
 }

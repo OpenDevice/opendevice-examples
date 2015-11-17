@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ ******************************************************************************
-  ~ Copyright (c) 2013-2014 CriativaSoft (www.criativasoft.com.br)
-  ~ All rights reserved. This program and the accompanying materials
-  ~ are made available under the terms of the Eclipse Public License v1.0
-  ~ which accompanies this distribution, and is available at
-  ~ http://www.eclipse.org/legal/epl-v10.html
-  ~
-  ~  Contributors:
-  ~  Ricardo JL Rufino - Initial API and Implementation
-  ~ ******************************************************************************
-  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -100,6 +88,29 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>${project.artifactId}-app</finalName>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>br.com.criativasoft.opendevice.jme3.Main3D</mainClass>
+                        </transformer>
+                    </transformers>
                 </configuration>
             </plugin>
         </plugins>

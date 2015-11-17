@@ -19,7 +19,9 @@ public class SwitchButton extends JToggleButton implements ItemListener, DeviceL
 
     private static ImageIcon iconON = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/power_circle_on.png"));
     private static ImageIcon iconOFF = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/power_circle_off.png"));
-    private static ImageIcon iconOFF_Hover = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/power_circle_off-hover.png"));
+
+    private static ImageIcon iconSwitchON = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/btn_switch_on.png"));
+    private static ImageIcon iconSwitchOFF = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/btn_switch_off.png"));
 
     private Device device;
 
@@ -28,11 +30,20 @@ public class SwitchButton extends JToggleButton implements ItemListener, DeviceL
         this.device = device;
         device.addListener(this);
 
-        setPressedIcon(iconON);
-        setSelectedIcon(iconON);
 
-        setDisabledIcon(iconOFF);
-        setDisabledSelectedIcon(iconON);
+        if(device instanceof  Sensor) {
+            setIcon(iconOFF);
+            setPressedIcon(iconON);
+            setSelectedIcon(iconON);
+            setDisabledIcon(iconOFF);
+            setDisabledSelectedIcon(iconON);
+        }else{
+            setIcon(iconSwitchOFF);
+            setPressedIcon(iconSwitchON);
+            setSelectedIcon(iconSwitchON);
+            setDisabledIcon(iconSwitchOFF);
+            setDisabledSelectedIcon(iconSwitchON);
+        }
 
         setBorderPainted(false);
         setFocusPainted(false);

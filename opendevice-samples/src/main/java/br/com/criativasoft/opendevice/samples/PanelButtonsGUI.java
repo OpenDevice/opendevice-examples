@@ -15,13 +15,7 @@ package br.com.criativasoft.opendevice.samples;
 
 import br.com.criativasoft.opendevice.connection.exception.ConnectionException;
 import br.com.criativasoft.opendevice.core.connection.Connections;
-import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceType;
-import br.com.criativasoft.opendevice.core.model.Sensor;
 import br.com.criativasoft.opendevice.samples.ui.AbstractButtonsForm;
-
-import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * Tutorial: https://opendevice.atlassian.net/wiki/display/DOC/A.+First+Steps+with+OpenDevice
@@ -34,16 +28,15 @@ public class PanelButtonsGUI extends AbstractButtonsForm {
 
     public PanelButtonsGUI() throws ConnectionException {
 
-//        super(Connections.out.usb("/dev/ttyACM1"));
+        super(Connections.out.usb());
 //        super(Connections.out.bluetooth("00:13:03:14:19:07"));
-        super(Connections.out.websocket("localhost:8181"));
-
-        Collection<Device> devices = new LinkedList<Device>();
-        devices.add(new Device(1,"BLUE", DeviceType.DIGITAL));
-        devices.add(new Device(2,"YELLOW", DeviceType.DIGITAL));
-        devices.add(new Device(3,"RED", DeviceType.DIGITAL));
-        devices.add(new Device(4,"TESTE", DeviceType.DIGITAL));
-        addDevices(devices);
+//        super(Connections.out.websocket("localhost:8181"));
+//
+//        Collection<Device> devices = new LinkedList<Device>();
+//        devices.add(new Device(1,"Device 1", DeviceType.DIGITAL));
+//        devices.add(new Device(2,"Device 2", DeviceType.DIGITAL));
+//        devices.add(new Device(3,"Device 3", DeviceType.DIGITAL));
+//        addDevices(devices);
 
         connect();
     }

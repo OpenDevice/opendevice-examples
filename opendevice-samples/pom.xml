@@ -4,11 +4,12 @@
 
     <groupId>com.example</groupId>
     <artifactId>opendevice-samples</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <opendevice-version>[0.1.2-SNAPSHOT,)</opendevice-version>
+        <opendevice-version>[0.1.3-SNAPSHOT,1.0.0)</opendevice-version>
     </properties>
 
     <repositories>
@@ -44,6 +45,11 @@
         <dependency>
             <groupId>br.com.criativasoft.opendevice</groupId>
             <artifactId>opendevice-wasync-client</artifactId>
+            <version>${opendevice-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.criativasoft.opendevice</groupId>
+            <artifactId>opendevice-js-engine</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
 

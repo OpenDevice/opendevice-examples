@@ -17,6 +17,7 @@ import br.com.criativasoft.opendevice.engine.js.OpenDeviceJSEngine;
 
 /**
  * This example demonstrates how to use javascript to build your application.
+ * Use scripts form: /opendevice-samples/src/main/resources/jsengine
  * NOTE: The opendevice-js-engine can be compiled to generate a .exe or jar executable.
  * @author Ricardo JL Rufino
  */
@@ -24,16 +25,12 @@ public class JavaScriptDemo {
 
     public static void main(String[] args)  {
 
-        // To run as application you need call main method.
-        // Use scripts form /opendevice-samples/src/main/resources/jsengine
-
         String path = JavaScriptDemo.class.getResource("/jsengine/BlinkButtonDemo.js").getPath();
 
         OpenDeviceJSEngine.main(new String[]{path});
 
         // For JavaFX APP
-
-        OpenDeviceJSEngine.main(new String[]{"-fx", path});
+        // OpenDeviceJSEngine.main(new String[]{"-fx", path});
 
     }
 }

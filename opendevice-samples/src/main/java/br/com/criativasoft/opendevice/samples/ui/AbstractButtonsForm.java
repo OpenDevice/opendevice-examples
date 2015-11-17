@@ -21,6 +21,7 @@ import br.com.criativasoft.opendevice.connection.message.Message;
 import br.com.criativasoft.opendevice.core.DeviceManager;
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.command.DeviceCommand;
+import br.com.criativasoft.opendevice.core.command.GetDevicesRequest;
 import br.com.criativasoft.opendevice.core.command.GetDevicesResponse;
 import br.com.criativasoft.opendevice.core.model.Device;
 
@@ -29,16 +30,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Collection;
 
 
-// USE: OpenDevice Middleware in Arduino...
 public class AbstractButtonsForm extends JFrame implements ConnectionListener , KeyEventDispatcher {
 
     private DeviceConnection connection;
-    DeviceManager manager = new LocalDeviceManager();
+    private DeviceManager manager = new LocalDeviceManager();
+    private boolean sync = false;
 
 	public AbstractButtonsForm(DeviceConnection connection) throws ConnectionException {
 		this.init();
@@ -77,23 +77,21 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
     @Override
     public void onMessageReceived(Message message, DeviceConnection connection) {
 
-        System.out.println("FormDevicesAPIController.onMessageReceived >>" + message.getClass());
 
 		if(message instanceof DeviceCommand){
 
 			DeviceCommand deviceCommand = (DeviceCommand) message;
 
-            Device device = manager.findDeviceByUID(deviceCommand.getDeviceID());
-            if(device != null){
-                System.out.println("devoce commnad !!!!!!");
-            }
+            // do... something
 
         }
 
         if(message instanceof GetDevicesResponse){
             GetDevicesResponse response = (GetDevicesResponse) message;
-            Collection<Device> devices = response.getDevices();
-            addDevices(devices);
+            if(!sync) {
+                sync = true;
+                addDevices(response.getDevices());
+            }
         }
 
 	}
@@ -121,12 +119,12 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
             e.printStackTrace();
         }
 
-        this.setTitle("Java Client (using: WebSocket)");
-
         final Collection<Device> devices = manager.getDevices();
 
-		final JButton btn5 = new JButton("Disconnect");
-        super.add(btn5);
+		final JButton btnConnect = new JButton("Disconnect");
+        final JButton btnSync = new JButton("Sync");
+        super.add(btnConnect);
+        super.add(btnSync);
         this.setLocation(150, 150);
         
         this.setLayout(new FlowLayout());
@@ -134,33 +132,44 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
         this.pack();
         this.setVisible(true);
 
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher(this);
+        final KeyboardFocusManager focusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        focusManager.addKeyEventDispatcher(this);
 
         
-        btn5.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String text = btn5.getText();
-				try{
-					if(text.equals("Disconnect")){
-						connection.disconnect();
+        btnConnect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = btnConnect.getText();
+                try {
+                    if (text.equals("Disconnect")) {
+                        connection.disconnect();
 
-                        for (Device device : devices){
+                        for (Device device : devices) {
                             device.setValue(0);
                         }
 
-						btn5.setText("Connect");
-					}else{
-						connection.connect();
-						btn5.setText("Disconnect");
-					}
-				}catch (Exception ex) {
+                        btnConnect.setText("Connect");
+                    } else {
+                        connection.connect();
+                        btnConnect.setText("Disconnect");
+                    }
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(AbstractButtonsForm.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
-				}
-			}
-		});
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        btnSync.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(manager.isConnected()){
+                    try {
+                        manager.send(new GetDevicesRequest());
+                    } catch (IOException e1) {}
+                }
+            }
+        });
         
         
 	}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Servidor Local" >
+        <CheckBoxPreference
+            android:key="ENABLE_WEB_SERVICE"
+            android:title="@string/enable_web_service" 
+            android:summary="@string/enable_web_service_sumary" />
+
+        <EditTextPreference
+            android:key="WEB_SERVICE_PORT"
+            android:title="Porta Web" 
+            android:summary="Porta do Servidor Web" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Servidor Remoto" >
+        <CheckBoxPreference
+            android:key="ENABLE_REMOTE_SERVER"
+            android:title="@string/enable_web_service"
+            android:summary="@string/enable_remote_web_service_sumary"
+            android:defaultValue="true" />
+        <!-- openhouse.criativasoft.com.br -->
+
+		<br.com.criativasoft.intellihouse.view.FindServerPreferenceDialog
+		        android:key="REMOTE_SERVER"
+			    android:title="Servidor Remoto"
+			    android:summary="Endereço do Servidor remoto"
+			    android:dialogMessage="Informe o IP ou Domínio(www)"
+    	/>
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Bluetooth" >
+        <CheckBoxPreference
+            android:key="BLUETOOTH_AUTO_CONNECT"
+            android:title="Auto-Conectar"
+            android:summary="Conectar-se automaticamente ao módulo de controle se o Bluetooth estiver ativo"
+            android:defaultValue="true" />
+
+        <CheckBoxPreference
+            android:key="BLUETOOTH_AUTO_DISCONNECT"
+            android:title="Auto-Desligar"
+            android:summary="Desligar automaticamente o bluetooth se nenhum módulo de controle estiver ativo (poupar bateria)"  />
+        
+        <!-- TODO: remover essa preferência, pois está XUMBADA -->
+        <ListPreference
+            android:key="BLUETOOTH_DEFAULT"
+            android:title="Dispositivo Padrão" 
+            android:summary="O dispositivo que é padrão.."
+            android:entries="@array/deviceNames"
+            android:entryValues="@array/deviceValues" />
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>

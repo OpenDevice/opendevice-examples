@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>IntelliHouse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    
+
+    <link href="bootstrap-responsive.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">IntelliHouse</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <h1>IntelliHouse - WebService TEST</h1>
+
+      <div id="devices">	
+	      <p>Device 1 <button type="button" class="btn btn-small btn-success" data-device="1" >ON</button>
+	               <button type="button" class="btn btn-small btn-danger" data-device="1">OFF</button> </p>
+	
+	      <p>Device 2 <button type="button" class="btn btn-small btn-success" data-device="2">ON</button>
+	               <button type="button" class="btn btn-small btn-danger" data-device="2">OFF</button> </p>
+	
+	      <p>Device 3 <button type="button" class="btn btn-small btn-success" data-device="3">ON</button>
+	               <button type="button" class="btn btn-small btn-danger" data-device="3">OFF</button> </p>
+      </div>
+      <p id="result"></p>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    
+    	function getURL(action){
+    		return  "http://"+window.location.host+"/" + action;
+    	}
+    	
+    	function loadDevices(){
+    		$("#devices").load(getURL("listDevices"), function(){
+    			addEvents();
+    		});
+    	}
+    	
+    	function addEvents(){
+    		$('#devices button').click(function(){
+    			var deviceID = $(this).data('device');
+    			var on = $(this).hasClass('btn-on');
+    			var url = getURL("device?id=" +deviceID + "&value=" + (on ? 1 : 0));
+    			$("#result").load(url, function(){
+    				loadDevices(); // Update devices.
+    			});
+    		});
+    	}
+    	
+    	$(function(){
+    		loadDevices();
+    	});
+    
+    </script>
+  </body>
+</html>
+

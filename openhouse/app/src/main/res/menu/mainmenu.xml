@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="ifRoom"
+        android:title="@string/txt_menu_atualizar">
+    </item>
+    <item
+        android:id="@+id/menuVoice"
+        android:icon="@drawable/abs__ic_go_search_api_holo_light"
+        android:showAsAction="ifRoom"
+        android:title="@string/txt_menu_voice">
+    </item>    
+    <item
+        android:id="@+id/submenu"
+        android:icon="@drawable/abs__ic_menu_moreoverflow_holo_dark"
+        android:showAsAction="always"
+        android:title="@string/txt_menu_settings">
+        <menu>
+            <item
+                android:id="@+id/submenu_add"
+                android:icon="@drawable/ic_menu_add"
+                android:showAsAction="ifRoom"
+                android:title="@string/add">
+            </item>
+            <item
+                android:id="@+id/menuSettings"
+                android:icon="@drawable/ic_menu_settings"
+                android:title="@string/txt_menu_settings">
+            </item>
+            <item
+                android:id="@+id/menuConsole"
+                android:icon="@drawable/ic_menu_console"
+                android:title="@string/txt_menu_console">
+            </item>
+            <item
+                android:id="@+id/menuExit"
+                android:icon="@drawable/ic_menu_exit"
+                android:title="@string/txt_menu_exit">
+            </item>
+        </menu>
+    </item>
+
+</menu>

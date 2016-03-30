@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Controle Inteligente de Equipamentos</string>
+    <string name="app_name">IntelliHouse</string>
+    <string name="txt_menu_settings">Configurações</string>
+    <string name="txt_menu_console">Logs</string>
+    <string name="txt_menu_exit">Sair</string>
+    <string name="txt_menu_voice">Controlar</string>
+    <string name="txt_menu_atualizar">Atualizar</string>
+    
+    <string name="server_started_text">Servidor Iniciado</string>
+    <string name="server_port_text">Porta: </string>
+    <string name="server_text">Servidor de Entrada</string>
+    <string name="device_connection_text">Modulo de Controle</string>
+    <string name="device_on_text">ON</string>
+    <string name="device_off_text">OFF</string>
+    <string name="device_connect_text">Conectar</string>
+    <string name="device_disconnect_text">Desconectar</string>
+    <string name="device_id_text">Disp. ID: </string>
+    <string name="enable_web_service">Servidor Web</string>
+    <string name="enable_web_service_sumary">Habilitar o Servidor Web embutido</string>
+    <string name="enable_remote_web_service_sumary">Conectar a um servidor externo</string>
+    
+    
+    <string-array name="list_device" >  
+    	<item>00:11:06:14:04:57</item>
+    </string-array>
+    <string-array name="list_deviceID" >
+    	<item>1</item>
+    	<item>2</item>
+    	<item>3</item>
+    </string-array>
+    	<string name="console_clear">Limpar</string>
+    	<string name="add">Adicionar</string>
+    	<string name="menu_device">Dispositivo</string>
+    	<string name="menu_sector">Setor</string>
+</resources>

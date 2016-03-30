@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<CheckBox
+    android:text="Exibir Legenda"
+    android:id="@+id/device_configure_enabled"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:layout_margin="5dip"
+    android:checked="true"
+    />
+    
+<TextView
+    android:text="DeviceID:"
+    android:layout_margin="5dip"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    />
+<!-- <EditText -->
+<!--     android:id="@+id/device_configure_id" -->
+<!--     android:text="Luz 01" -->
+<!--     android:layout_width="fill_parent" -->
+<!--     android:layout_height="wrap_content" -->
+<!--     android:singleLine="true" -->
+<!--     android:maxLines="1" -->
+<!--     android:layout_margin="5dip" -->
+<!--     /> -->
+<Spinner
+    android:id="@+id/device_configure_id"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
+    
+    <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="5dip"
+    >
+      <Button
+        android:id="@+id/device_configure_ok"
+        android:text="Ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+      <Button
+        android:id="@+id/device_configure_cancel"
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"/>
+    </LinearLayout>
+</LinearLayout>

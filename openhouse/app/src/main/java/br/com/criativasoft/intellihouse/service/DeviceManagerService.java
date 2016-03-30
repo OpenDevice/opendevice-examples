@@ -604,26 +604,25 @@ public class DeviceManagerService extends Service implements ConnectionListener 
     
  // load stub data 
     public static void loadData() {
-    	
-    	Sector sector = new Sector("Setor 1");
-    	addDevice(sector, "Luz", 1, DeviceCategory.LAMP);
-    	addDevice(sector, "Tomada", 2, DeviceCategory.POWER_SOURCE);
-    	addDevice(sector, "Ventilador", 3, DeviceCategory.FAN);
-//    	addDevice(sector, "Controle Remoto", 51, DeviceCategory.IR_SENSOR);
+
+    	Sector sector = new Sector("Meu Quarto");
+    	addDevice(sector, "Ar-Condicionado", 1, DeviceCategory.POWER_SOURCE);
+    	addDevice(sector, "Luz Quarto", 2, DeviceCategory.LAMP);
+    	addDevice(sector, "Tomada 1", 3, DeviceCategory.POWER_SOURCE);
+    	addDevice(sector, "Ventilador", 4, DeviceCategory.FAN);
     	sectors.add(sector);
     	
-    	sector = new Sector("Setor 2");
+    	sector = new Sector("Sala");
     	addDevice(sector, "Device 2.1", 4, DeviceCategory.FAN);
     	addDevice(sector, "Device 2.2", 5, DeviceCategory.LAMP);
     	addDevice(sector, "Device 2.3", 6, DeviceCategory.POWER_SOURCE);
     	sectors.add(sector);
     	
-    	sector = new Sector("Setor 3");
+    	sector = new Sector("Cozinha");
     	addDevice(sector, "Device 3.1", 7, DeviceCategory.POWER_SOURCE);
     	addDevice(sector, "Device 3.2", 8, DeviceCategory.LAMP);
     	addDevice(sector, "Device 3.3", 9, DeviceCategory.FAN);
     	sectors.add(sector);
-    	
     }
     
     
@@ -643,7 +642,8 @@ public class DeviceManagerService extends Service implements ConnectionListener 
     	sector.getDevices().add(device);
     	
     	devices.add(device);
-    	
+
+
     	return device;
     	
     }

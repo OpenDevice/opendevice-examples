@@ -14,6 +14,7 @@ import br.com.criativasoft.opendevice.connection.ConnectionStatus;
 import br.com.criativasoft.opendevice.connection.DeviceConnection;
 import br.com.criativasoft.opendevice.connection.message.Message;
 import br.com.criativasoft.opendevice.connection.util.DataUtils;
+import br.com.criativasoft.opendevice.core.BaseDeviceManager;
 import br.com.criativasoft.opendevice.core.command.Command;
 import br.com.criativasoft.opendevice.core.command.CommandMapping;
 import br.com.criativasoft.opendevice.core.command.CommandMappingStore;
@@ -68,7 +69,7 @@ public class InfraredCommandService extends Service implements ConnectionListene
 			if(mappingStore != null){
 				
 				Device device = mappingStore.getDevice();
-				device = DeviceManagerService.getDeviceByID(device.getUid());
+				device = BaseDeviceManager.getInstance().findDeviceByUID(device.getUid());
 				
 				if(device != null){
 					

@@ -11,12 +11,8 @@
  * *****************************************************************************
  */
 
-import br.com.criativasoft.opendevice.connection.DeviceConnection;
-import br.com.criativasoft.opendevice.connection.OnConnectListener;
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
-import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceListener;
 import br.com.criativasoft.opendevice.core.model.Sensor;
 
 /**

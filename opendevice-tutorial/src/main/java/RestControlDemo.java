@@ -1,7 +1,6 @@
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
-import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceListener;
+import br.com.criativasoft.opendevice.core.listener.DeviceListener;
 
 
 /**
@@ -48,5 +47,8 @@ public class RestControlDemo extends LocalDeviceManager implements DeviceListene
         System.out.println("DeviceChanged = " + device);
     }
 
-
+    @Override
+    public void onDeviceRegistred(Device device) {
+        System.out.println("DeviceRegistred = " + device);
+    }
 }

@@ -14,7 +14,7 @@
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceListener;
+import br.com.criativasoft.opendevice.core.listener.DeviceListener;
 import br.com.criativasoft.opendevice.core.model.DeviceType;
 
 import java.io.IOException;
@@ -37,6 +37,11 @@ public class CubesDemo extends LocalDeviceManager {
             @Override
             public void onDeviceChanged(Device device) {
                 System.out.println("Listener - Device changed : " + device.getId() + " - " + device.getValue());
+            }
+
+            @Override
+            public void onDeviceRegistred(Device device) {
+
             }
         });
 

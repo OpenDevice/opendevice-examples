@@ -8,7 +8,7 @@ import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.command.GetDevicesResponse;
 import br.com.criativasoft.opendevice.core.connection.Connections;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceListener;
+import br.com.criativasoft.opendevice.core.listener.DeviceListener;
 import br.com.criativasoft.opendevice.core.model.DeviceType;
 import br.com.criativasoft.opendevice.core.model.Sensor;
 import com.jme3.app.SimpleApplication;

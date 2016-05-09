@@ -44,7 +44,7 @@ public class WebSocketDemo extends LocalDeviceManager {
         connect(); // Connects all configured connections
 
         // Enable discovery service  (Allows clients automatically find this server
-        getDiscoveryService().listen(8181);
+        getDiscoveryService().listen();
     }
 
 

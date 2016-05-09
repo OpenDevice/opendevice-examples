@@ -11,7 +11,7 @@
  * *****************************************************************************
  */
 
-import br.com.criativasoft.opendevice.connection.server.TCPServerConnection;
+import br.com.criativasoft.opendevice.connection.TCPServerConnection;
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 import br.com.criativasoft.opendevice.core.model.Device;
 

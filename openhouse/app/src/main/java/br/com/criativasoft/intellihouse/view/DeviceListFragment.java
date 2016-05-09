@@ -1,6 +1,7 @@
 package br.com.criativasoft.intellihouse.view;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,6 @@ public class DeviceListFragment extends SherlockListFragment {
 	
 	private Sector sector;
 	
-	private List<Device> entries = new ArrayList<Device>();
 	private DeviceListAdapter deviceListAdapter;
 	
 	public interface OnDeviceSelectedListener {
@@ -36,9 +36,8 @@ public class DeviceListFragment extends SherlockListFragment {
 		super.onCreate(savedInstanceState);
 		
 		Set<Device> devices = sector.getDevices();
-		entries.addAll(devices);
-		
-		deviceListAdapter = new DeviceListAdapter(getActivity(), entries);
+
+		deviceListAdapter = new DeviceListAdapter(getActivity(), sector);
 		setListAdapter(deviceListAdapter);
 		
 	}
@@ -69,7 +68,7 @@ public class DeviceListFragment extends SherlockListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
   	  // Get the HashMap of the clicked item
-  	  Device device = entries.get(position);
+  	  Device device = getDevices().get(position);
 
   	  if(mCallback != null) mCallback.onDeviceSelected(device, this);
   	  else Toast.makeText(getActivity(), "No Select calback", Toast.LENGTH_SHORT).show();
@@ -83,7 +82,7 @@ public class DeviceListFragment extends SherlockListFragment {
 	
 	
 	public Device getDevice(int deviceID){
-		for (Device device : entries) {
+		for (Device device : sector.getDevices()) {
 			if(device.getUid() == deviceID){
 				return device;
 			}
@@ -91,7 +90,10 @@ public class DeviceListFragment extends SherlockListFragment {
 		
 		return null;
 	}
-	
+
+	public List<Device> getDevices() {
+		return new LinkedList<>(sector.getDevices());
+	}
     
 	
  

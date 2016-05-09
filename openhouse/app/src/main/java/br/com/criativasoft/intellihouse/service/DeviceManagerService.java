@@ -67,7 +67,7 @@ public class DeviceManagerService extends Service implements ConnectionListener 
 	private static final int NOTIFICATION_STARTED = 1;
 	private static final int NOTIFICATION_WEBSERVER = 2;
 	
-	// TODO: deve ser removido quanto tiver o crud de conecao
+	// TODO: deve ser removido quanto tiver o crud de conexao
 	public static String DEFAULT_BLUETOOTH_DEVICE = "00:11:09:25:04:75"; // "00:11:06:14:04:57";
 	 
 	private LocalDeviceManager manager;
@@ -109,6 +109,7 @@ public class DeviceManagerService extends Service implements ConnectionListener 
         bindDependentServices();
         
 		initConnection();
+
 	}
 
 	@Override
@@ -149,15 +150,18 @@ public class DeviceManagerService extends Service implements ConnectionListener 
 			// NOTA: Talvez seja mais apropriado um ConnectionManager mais complexo.
 			manager = new LocalDeviceManager();
 
+            sendBroadcast(new Intent(IntelliHouseIntent.DEVICE_SERVICE_STARTED));
+
             manager.addListener(new DeviceListener() {
                 @Override
                 public void onDeviceChanged(Device device) {
-                    // Enviar notificação para os compoentens externos (Ex: Widgets)
-                    DeviceCommand command = new DeviceCommand(CommandType.DIGITAL, device.getUid(), device.getValue());
-                    Intent intent = new Intent(IntelliHouseIntent.ACTION_SEND);
-                    intent.putExtra(IntelliHouseIntent.EXTRA_COMMAND, command);
-                    intent.putExtra(IntelliHouseIntent.EXTRA_DEVICE_ID, command.getDeviceID());
-                    sendBroadcast(intent);
+                    // TODO: acho que ja tem em outro lugar..
+//                    // Enviar notificação para os compoentens externos (Ex: Widgets)
+//                    DeviceCommand command = new DeviceCommand(CommandType.DIGITAL, device.getUid(), device.getValue());
+//                    Intent intent = new Intent(IntelliHouseIntent.EVENT_DEVICE_UPDATED);
+//                    intent.putExtra(IntelliHouseIntent.EXTRA_COMMAND, command);
+//                    intent.putExtra(IntelliHouseIntent.EXTRA_DEVICE_ID, command.getDeviceID());
+//                    sendBroadcast(intent);
                 }
             });
 
@@ -182,27 +186,37 @@ public class DeviceManagerService extends Service implements ConnectionListener 
 //			}
 			
 			manager.addConnectionListener(this);
-			
+
 			BluetoothAdapter.getDefaultAdapter(); // Hack for evict RuntimeException in *BluetoohConnection (http://stackoverflow.com/a/15036421/955857)
 
 		}
-		
 
 
-            Thread thread = new Thread(){
-                @Override
-                public void run() {
-                    try {
-                        manager.connect();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),  "ERROR:" + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+        AsyncTask connectTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+
+                try {
+                    manager.connect();
+                } catch (IOException e) {
+                    return e;
                 }
-            };
 
-        thread.start();
-		
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                if(o instanceof Exception){
+                    Exception e = (Exception) o;
+                    Toast.makeText(getApplicationContext(),  "ERROR:" + e.getCause().getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        };
+        connectTask.execute();
+
+
 		if(hasWifi() && isWebServerEnabled()){
 			showNotification(NOTIFICATION_WEBSERVER);
 		}else{
@@ -277,7 +291,10 @@ public class DeviceManagerService extends Service implements ConnectionListener 
 	
 	@Override
 	public void connectionStateChanged(final DeviceConnection connection, final ConnectionStatus status) {
-		// TODO: fire intent !
+
+        Intent intent = new Intent(IntelliHouseIntent.CONNECTION_CHANGE);
+        intent.putExtra(IntelliHouseIntent.EXTRA_STATUS, status);
+        sendBroadcast(intent);
 		
 		new Handler(Looper.getMainLooper()).post(new Runnable() {
 		    @Override

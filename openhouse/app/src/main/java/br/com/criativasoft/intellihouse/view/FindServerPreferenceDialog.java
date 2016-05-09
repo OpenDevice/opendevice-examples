@@ -16,6 +16,11 @@ import android.widget.Toast;
 import br.com.criativasoft.intellihouse.io.IOUtils;
 import br.com.criativasoft.intellihouse.io.NetworkServerDiscoverer;
 import br.com.criativasoft.intellihouse.io.NetworkServerDiscoverer.DiscoveryListener;
+import br.com.criativasoft.opendevice.connection.discovery.DiscoveryService;
+import br.com.criativasoft.opendevice.connection.discovery.NetworkDeviceInfo;
+import br.com.criativasoft.opendevice.core.BaseDeviceManager;
+import br.com.criativasoft.opendevice.core.DeviceManager;
+import br.com.criativasoft.opendevice.core.LocalDeviceManager;
 
 public class FindServerPreferenceDialog extends DialogPreference implements
 		OnClickListener, DiscoveryListener {
@@ -113,9 +118,18 @@ public class FindServerPreferenceDialog extends DialogPreference implements
 	public void onClick(View v) {
 		WifiManager wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
 		if(IOUtils.hasWifi(mContext)){
-			NetworkServerDiscoverer discoverer = new NetworkServerDiscoverer(wifiManager);
-			discoverer.setListener(this);
-			discoverer.start();
+
+			BaseDeviceManager instance = (BaseDeviceManager) BaseDeviceManager.getInstance();
+			DiscoveryService discoveryService = instance.getDiscoveryService();
+			discoveryService.scan(5000, "*", new br.com.criativasoft.opendevice.connection.discovery.DiscoveryListener() {
+				public void onDiscoveryDevice(NetworkDeviceInfo networkDeviceInfo) {
+                    System.out.println("NetworkDeviceInfo:" + networkDeviceInfo);
+                }
+			});
+
+//			NetworkServerDiscoverer discoverer = new NetworkServerDiscoverer(wifiManager);
+//			discoverer.setListener(this);
+//			discoverer.start();
 			progress = ProgressDialog.show(mContext, "Servidor", "Buscando na Rede Local...", true, true);
 		}else{
 			Toast.makeText(mContext, "Wifi não conectado !", Toast.LENGTH_SHORT).show();

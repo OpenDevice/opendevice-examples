@@ -27,34 +27,42 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.criativasoft.intellihouse.R;
 import br.com.criativasoft.opendevice.core.model.Device;
 import br.com.criativasoft.opendevice.core.model.DeviceCategory;
+import br.com.criativasoft.opendevice.core.model.DeviceListener;
+import br.com.criativasoft.opendevice.core.model.Sector;
 
 /**
  * List of Devices for Sect
  */
-public class DeviceListAdapter extends BaseAdapter {
+public class DeviceListAdapter extends BaseAdapter implements DeviceListener {
 
-	private List<Device> devices;
 	private Context context;
+    private Sector sector;
 	
-	public DeviceListAdapter(Context context, List<Device> devices){
+	public DeviceListAdapter(Context context, Sector sector){
 		this.context = context;
-		this.devices = devices;
-	}
+        this.sector = sector;
+    }
 	
-	public int getCount() {
-		if (devices != null) {
-			return devices.size();
-		}
-		return 0;
+
+	public void addDevice(Device device){
+		device.addListener(this);
+		notifyDataSetChanged();
 	}
 
-	public Object getItem(int position) {
-		return devices.get(position);
+    @Override
+    public int getCount() {
+        return getDevices().size();
+    }
+
+    public Object getItem(int position) {
+		return getDevices().get(position);
 	}
 	
 	public long getItemId(int position) {
@@ -78,7 +86,7 @@ public class DeviceListAdapter extends BaseAdapter {
 		TextView tfType = (TextView) view.findViewById(R.id.txt_type);
 		ImageView icon = (ImageView) view.findViewById(R.id.img_user);
 		
-		Device device = devices.get(position);
+		Device device = getDevices().get(position);
 		
 		name.setText(device.getName());
 		tfID.setText(""+device.getUid());
@@ -106,7 +114,12 @@ public class DeviceListAdapter extends BaseAdapter {
 	}
 	
 	public List<Device> getDevices() {
-		return devices;
+		return new LinkedList<>(sector.getDevices());
+	}
+
+	@Override
+	public void onDeviceChanged(Device device) {
+        notifyDataSetChanged();
 	}
 }
 

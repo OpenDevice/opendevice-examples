@@ -1,7 +1,7 @@
 package br.com.criativasoft.opendevice.samples.ui;
 
+import br.com.criativasoft.opendevice.core.listener.OnDeviceChangeListener;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceListener;
 import br.com.criativasoft.opendevice.core.model.Sensor;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.awt.event.ItemListener;
  * @author Ricardo JL Rufino
  * @date 14/09/14.
  */
-public class SwitchButton extends JToggleButton implements ItemListener, DeviceListener{
+public class SwitchButton extends JToggleButton implements ItemListener, OnDeviceChangeListener{
 
     private static ImageIcon iconON = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/power_circle_on.png"));
     private static ImageIcon iconOFF = new javax.swing.ImageIcon(SwitchButton.class.getResource("/icons/power_circle_off.png"));
@@ -82,14 +82,7 @@ public class SwitchButton extends JToggleButton implements ItemListener, DeviceL
     @Override
     public void onDeviceChanged(Device deviceChanged) {
 
-        boolean selected = device.getValue() == 1;
-
-        if(selected != this.isSelected()){
-            System.out.println("BUTTON CHNAGE !!!");
-
-            if(deviceChanged.getValue() == 0) this.setSelected(false);
-            if(deviceChanged.getValue() == 1) this.setSelected(true);
-        }
+        this.setSelected(device.isON());
 
     }
 }

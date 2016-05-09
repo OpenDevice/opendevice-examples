@@ -31,13 +31,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.*;
 
 
 public class AbstractButtonsForm extends JFrame implements ConnectionListener , KeyEventDispatcher {
 
     private DeviceConnection connection;
     private DeviceManager manager = new LocalDeviceManager();
+    private java.util.List<Device> devices = new LinkedList<Device>();
+    private java.util.List<SwitchButton> buttons = new LinkedList<SwitchButton>();
+
     private boolean sync = false;
 
 	public AbstractButtonsForm(DeviceConnection connection) throws ConnectionException {
@@ -47,7 +50,7 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
 
 		this.connection = connection;
         manager.addOutput(connection);
-        connection.addListener(this);
+        manager.addConnectionListener(this);
     }
 
 
@@ -63,14 +66,32 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
 
     public void addDevices(Collection<Device> devices){
         for (Device device : devices){
-            SwitchButton switchButton = new SwitchButton(device);
-            add(switchButton);
+
+            if(!this.devices.contains(device)){
+                SwitchButton switchButton = new SwitchButton(device);
+                add(switchButton);
+                this.buttons.add(switchButton);
+                this.devices.add(device);
+            }
+
         }
         pack(); // force resize
     }
 
+
     @Override
     public void connectionStateChanged(DeviceConnection connection,ConnectionStatus status) {
+
+        if(status == ConnectionStatus.CONNECTED){
+            for (SwitchButton button : buttons) {
+                button.setEnabled(true);
+            }
+        }else if (status == ConnectionStatus.DISCONNECTED){
+            for (SwitchButton button : buttons) {
+                button.setEnabled(false);
+            }
+        }
+
         System.out.println(">>> DeviceConnection = " + status);
     }
 
@@ -88,10 +109,7 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
 
         if(message instanceof GetDevicesResponse){
             GetDevicesResponse response = (GetDevicesResponse) message;
-            if(!sync) {
-                sync = true;
-                addDevices(response.getDevices());
-            }
+            addDevices(response.getDevices());
         }
 
 	}
@@ -125,6 +143,7 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
         final JButton btnSync = new JButton("Sync");
         super.add(btnConnect);
         super.add(btnSync);
+
         this.setLocation(150, 150);
         
         this.setLayout(new FlowLayout());
@@ -142,7 +161,7 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
                 String text = btnConnect.getText();
                 try {
                     if (text.equals("Disconnect")) {
-                        connection.disconnect();
+                        manager.disconnect();
 
                         for (Device device : devices) {
                             device.setValue(0);
@@ -150,7 +169,7 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
 
                         btnConnect.setText("Connect");
                     } else {
-                        connection.connect();
+                        manager.connect();
                         btnConnect.setText("Disconnect");
                     }
                 } catch (Exception ex) {
@@ -176,5 +195,9 @@ public class AbstractButtonsForm extends JFrame implements ConnectionListener , 
 
     public DeviceConnection getConnection() {
         return connection;
+    }
+
+    public DeviceManager getManager() {
+        return manager;
     }
 }

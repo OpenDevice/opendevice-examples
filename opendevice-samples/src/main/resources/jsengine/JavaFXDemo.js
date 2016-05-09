@@ -1,3 +1,5 @@
+
+// Imports
 var Button = javafx.scene.control.Button;
 var HBox = javafx.scene.layout.HBox;
 var Scene = javafx.scene.Scene;
@@ -19,11 +21,6 @@ var root = new HBox();
 root.children.addAll(btnConnect, button);
 stage.scene = new Scene(root);
 stage.show();
-
-onConnected(function(){
-    button.setDisable(false);
-});
-
 
 onConnected(function(){
     button.setDisable(false);

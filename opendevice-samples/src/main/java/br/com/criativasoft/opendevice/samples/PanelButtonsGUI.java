@@ -15,6 +15,9 @@ package br.com.criativasoft.opendevice.samples;
 
 import br.com.criativasoft.opendevice.connection.exception.ConnectionException;
 import br.com.criativasoft.opendevice.core.connection.Connections;
+import br.com.criativasoft.opendevice.core.listener.OnDeviceChangeListener;
+import br.com.criativasoft.opendevice.core.model.Device;
+import br.com.criativasoft.opendevice.core.model.Sensor;
 import br.com.criativasoft.opendevice.samples.ui.AbstractButtonsForm;
 
 /**
@@ -28,7 +31,29 @@ public class PanelButtonsGUI extends AbstractButtonsForm {
 
     public PanelButtonsGUI() throws ConnectionException {
 
-        super(Connections.out.usb());
+        super(Connections.out.websocket("localhost:8181"));
+//        super(Connections.out.tcp("Controlador-Quarto.local.opendevice"));
+//        super(Connections.out.tcp("GEDAI_Lock1.local.opendevice"));
+//        super(Connections.out.tcp("arduino.local:5555"));
+//        super(Connections.out.tcp("192.168.4.1:8182"));
+//        super(Connections.out.usb());
+//        super(Connections.out.bluetooth("00:11:06:14:04:57"));
+
+
+
+        Sensor ir = new Sensor(6, Sensor.NUMERIC);
+
+        ir.onChange(new OnDeviceChangeListener() {
+            @Override
+            public void onDeviceChanged(Device device) {
+                System.out.println("IR VALUE: " + device.getValue());
+            }
+        });
+
+        //getManager().addOutput(Connections.out.tcp("192.168.3.106:8182"));
+
+
+//        super(Connections.out.usb());
 //        super(Connections.out.bluetooth("00:13:03:14:19:07"));
 //        super(Connections.out.websocket("localhost:8181"));
 //

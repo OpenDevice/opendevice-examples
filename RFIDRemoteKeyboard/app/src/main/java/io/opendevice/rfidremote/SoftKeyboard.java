@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build;
+import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -34,10 +35,12 @@ import br.com.criativasoft.opendevice.core.model.Sensor;
  */
 public class SoftKeyboard extends InputMethodService implements DeviceListener {
 
+    private static String TAG = "SoftKeyboard";
+
     private LocalDeviceManager manager;
     private Sensor sensor;
-    private static String BLUETOOTH_ID = "00:11:06:14:04:57";
-
+    private static String BLUETOOTH_ID = "00:11:09:25:01:42";
+    private static int SENSOR_ID = 1;
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
@@ -49,7 +52,7 @@ public class SoftKeyboard extends InputMethodService implements DeviceListener {
     public void onCreate() {
         super.onCreate();
         manager = new LocalDeviceManager();
-        sensor = new Sensor(1, Device.ANALOG);
+        sensor = new Sensor(SENSOR_ID, Device.NUMERIC);
 
         manager.addDevice(sensor);
         manager.addListener(this);
@@ -119,7 +122,7 @@ public class SoftKeyboard extends InputMethodService implements DeviceListener {
 
             if(message instanceof DeviceCommand){
                 DeviceCommand command = (DeviceCommand) message;
-                if(command.getType() == CommandType.ANALOG) {
+                if(command.getType() == CommandType.NUMERIC) {
                     sendKeyboard(command.getValue());
                 }
             }
@@ -142,6 +145,9 @@ public class SoftKeyboard extends InputMethodService implements DeviceListener {
         }
 
         String val = Long.toString(value);
+
+        Log.d(TAG, "Send keys: " + val);
+
         char[] chars = val.toCharArray();
 
         KeyCharacterMap CharMap;

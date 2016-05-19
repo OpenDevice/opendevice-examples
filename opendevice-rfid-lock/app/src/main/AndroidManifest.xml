@@ -29,6 +29,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".app.SettingsActivity"
+            android:label="Preferences" >
+        </activity>
+
         <service android:name=".android.services.DiscoveryIntentService" android:enabled="true" />
 
     </application>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="connectionTypes">
+        <item>Wifi_Direct</item>
+        <item>Wifi_LocalServer</item>
+        <item>Bluetooth</item>
+        <item>Internet</item>
+    </string-array>
+</resources>

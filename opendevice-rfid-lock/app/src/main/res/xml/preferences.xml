@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference android:title="Usuário"
+        android:key="username"
+        android:summary="Informe o nome de usuário" />
+
+    <CheckBoxPreference android:title="Desconexão Automática"
+        android:defaultValue="true"
+        android:summary="Desconecta automaticamente após acionar a fechadura"
+        android:key="autoDisconnect" />
+
+    <ListPreference  android:title="Tipo de Conexão"
+        android:key="connectionType"
+        android:defaultValue="Wifi_LocalServer"
+        android:entries="@array/connectionTypes"
+        android:entryValues="@array/connectionTypes" />
+
+    <!-- TODO: Must be a custom component -->
+    <EditTextPreference  android:title="Endereço Servidor/Dispositivo"
+        android:key="server"
+        android:defaultValue="http://192.168.0.20:8182" />
+
+    <PreferenceCategory android:title="Dispositivo" >
+
+        <EditTextPreference android:title="Dispositivo da Tranca (ID)"
+            android:summary="Código do dispositivo da tranca"
+            android:key="deviceID"  android:inputType="numberDecimal" />
+
+        <Preference android:title="Buscar Dispositivo" android:key="exitlink"/>
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

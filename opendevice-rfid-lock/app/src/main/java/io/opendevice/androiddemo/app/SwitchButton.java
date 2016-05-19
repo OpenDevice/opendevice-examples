@@ -5,13 +5,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
-
+import br.com.criativasoft.opendevice.core.listener.OnDeviceChangeListener;
 import br.com.criativasoft.opendevice.core.model.Device;
-import br.com.criativasoft.opendevice.core.model.DeviceListener;
 import io.opendevice.androiddemo.R;
 
 
-public class SwitchButton extends ImageButton implements DeviceListener, View.OnClickListener {
+public class SwitchButton extends ImageButton implements OnDeviceChangeListener, View.OnClickListener {
 
     private Device device;
 
@@ -26,39 +25,47 @@ public class SwitchButton extends ImageButton implements DeviceListener, View.On
     }
 
     public void setDevice(Device device) {
-        device.addListener(this);
         this.device = device;
+        device.addListener(this);
         updateViewState();
     }
 
-    private void updateViewState(){
-        if(this.device.getValue() == Device.ON){
-            setImageResource(R.drawable.btn_switch_on);
-        }else{
-            setImageResource(R.drawable.btn_switch_off);
-        }
+    public Device getDevice() {
+        return device;
     }
 
-    @Override
-    public void onDeviceChanged(final Device changed) {
+    private void updateViewState(){
+
+        if(device == null) return;
 
         Activity context = (Activity) getContext();
 
         context.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(changed.getUid() == device.getUid()){
-                    updateViewState();
+                if(getDevice().isON()){
+                    setImageResource(R.drawable.btn_switch_on);
+                }else{
+                    setImageResource(R.drawable.btn_switch_off);
                 }
             }
         });
+    }
 
+    @Override
+    public void onDeviceChanged(final Device changed) {
+        updateViewState();
     }
 
     @Override
     public void onClick(View v) {
 
-        if(this.device.getValue() == Device.OFF){
+        if(device == null){
+            System.err.println("Device not configured !");
+            return;
+        }
+
+        if(this.device.isOFF()){
             device.on();
         }else{
             device.off();

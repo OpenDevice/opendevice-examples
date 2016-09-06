@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/demo.css">
 
-    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.atmosphere.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.atmosphere.js"></script>
     <script type="text/javascript" src="/js/opendevice.js"></script> <!-- mvn:dependency -->
 
     <script>
@@ -43,7 +43,6 @@
 
         function toggleValue(deviceID){
             ODev.toggleValue(deviceID);
-            updateView(ODev.findDevice(deviceID));
         }
 
         /** Create HTML */

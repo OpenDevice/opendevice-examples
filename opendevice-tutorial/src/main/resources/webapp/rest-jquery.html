@@ -11,13 +11,13 @@
 
         function send(value) {
             var deviceID = $("#deviceID").val();
-            var url = "/device/" + deviceID + "/value/" + value;
+            var url = "/api/devices/" + deviceID + "/value/" + value;
             call_rest(url);
         }
 
         function getValue(){
             var deviceID = $("#deviceID").val();
-            var url = "/device/" + deviceID + "/value";
+            var url = "/api/devices/" + deviceID + "/value";
             call_rest(url);
         }
 

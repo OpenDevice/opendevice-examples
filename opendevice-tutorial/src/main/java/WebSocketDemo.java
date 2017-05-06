@@ -1,5 +1,12 @@
 import br.com.criativasoft.opendevice.connection.IWSServerConnection;
 import br.com.criativasoft.opendevice.core.LocalDeviceManager;
+import br.com.criativasoft.opendevice.core.dao.DeviceDao;
+import br.com.criativasoft.opendevice.core.dao.memory.DeviceDaoMemory;
+import br.com.criativasoft.opendevice.wsrest.guice.GuiceInjectProvider;
+import br.com.criativasoft.opendevice.wsrest.guice.config.GuiceModule;
+import com.google.inject.Binder;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 import java.io.File;
 
@@ -34,6 +41,10 @@ public class WebSocketDemo extends LocalDeviceManager {
         String path = getClass().getResource("/").getPath();
         String current = new File(path).getParentFile().getParent();
 
+        // Set IoC/DI Config
+        Injector injector = Guice.createInjector(new DependencyConfig());
+        GuiceInjectProvider.setInjector(injector);
+
         // Configure a Websocket interface for receiving commands over HTTP
         IWSServerConnection server = in.websocket(8181);
         server.addWebResource(current + "/src/main/resources/webapp");
@@ -47,5 +58,14 @@ public class WebSocketDemo extends LocalDeviceManager {
         getDiscoveryService().listen();
     }
 
+    public static class DependencyConfig extends GuiceModule {
 
-}
+        public void configure(Binder binder) {
+            super.configure(binder);
+            binder.bind(DeviceDao.class).to(DeviceDaoMemory.class);
+//            binder.bind(EntityManager.class).toProvider(HibernateProvider.class);
+
+        }
+    }
+
+    }

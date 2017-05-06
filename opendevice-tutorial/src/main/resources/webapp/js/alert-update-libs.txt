@@ -1,0 +1,6 @@
+If you are not using maven or library manager, please update the libs:
+
+https://github.com/OpenDevice/OpenDevice/tree/master/opendevice-clients/opendevice-js/dist/js
+
+-jquery.atmosphere.js
+https://github.com/Atmosphere/atmosphere-javascript/tree/master/modules/javascript/src/main/webapp/javascript

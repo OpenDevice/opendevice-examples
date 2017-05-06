@@ -12,7 +12,7 @@ import java.io.File;
 
 
 /**
- * Run using Maven: mvn compile exec:java -Dexec.mainClass=WebSocketDemo
+ * <<<<< WARN >>>>> Run using Maven: mvn compile exec:java -Dexec.mainClass=WebSocketDemo
  *
  * Access the URL in the browser: http://localhost:8181<br/>
 

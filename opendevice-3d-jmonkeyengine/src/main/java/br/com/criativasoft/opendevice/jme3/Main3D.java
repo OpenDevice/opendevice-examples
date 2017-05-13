@@ -208,11 +208,11 @@ public class Main3D extends SimpleApplication implements ConnectionListener, Dev
 
     private void addAndroidModel(Device device){
         Spatial clone = androidModel.clone();
-        clone.setUserData("device", device.getId());
+        clone.setUserData("device", device.getUid());
 
         // Model have 2 childs: Android, Eye
         Geometry geometry = (Geometry) ((Node)clone).getChild("Android");
-        geometry.setUserData("device", device.getId());
+        geometry.setUserData("device", device.getUid());
         assignMaterial(geometry);
 
         clone.move(lastLocation, 0.45f, 0);
@@ -238,7 +238,7 @@ public class Main3D extends SimpleApplication implements ConnectionListener, Dev
     private void assignMaterial(Geometry geometry) {
         Integer deviceID = geometry.getUserData("device");
         Device device = manager.findDevice(deviceID);
-        Material mat = materialList.get(device.getId() + (device.isON() ? "Active" : ""));
+        Material mat = materialList.get(device.getUid() + (device.isON() ? "Active" : ""));
         System.out.println("Set material : " + mat + ", key " + device);
         geometry.setMaterial(mat);
 
@@ -314,5 +314,10 @@ public class Main3D extends SimpleApplication implements ConnectionListener, Dev
         g.setMaterial(mat);
         rootNode.attachChild(g);
         return g;
+    }
+
+    @Override
+    public void onDeviceRegistred(Device device) {
+
     }
 }

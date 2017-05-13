@@ -36,7 +36,7 @@ public class CubesDemo extends LocalDeviceManager {
         addListener(new DeviceListener() {
             @Override
             public void onDeviceChanged(Device device) {
-                System.out.println("Listener - Device changed : " + device.getId() + " - " + device.getValue());
+                System.out.println("Listener - Device changed : " + device.getUid() + " - " + device.getValue());
             }
 
             @Override

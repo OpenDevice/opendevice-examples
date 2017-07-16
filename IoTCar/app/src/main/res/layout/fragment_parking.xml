@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#113f7b">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="40dp"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:padding="4dp"
+            android:background="@drawable/bg_rounded_blue"
+            android:layout_marginLeft="12dp"
+            >
+
+            <TextView
+                android:id="@+id/left"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/parking_blueprint_color"
+                android:text="Left"/>
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_height="200dp"
+            android:src="@drawable/car_blueprint"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:padding="4dp"
+            android:background="@drawable/bg_rounded_blue"
+            android:layout_marginRight="12dp"
+            >
+
+            <TextView
+                android:id="@+id/right"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@color/parking_blueprint_color"
+                android:text="Right"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp">
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/progressLeft"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:progressDrawable="@drawable/sensor_range_layout"
+            android:progress="80"
+            android:max="100"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/progressRight"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:layout_gravity="right"
+            android:progressDrawable="@drawable/sensor_range_layout"
+            android:progress="80"
+            android:max="100"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+        <!--android:rotation="270"-->
+        <!--android:progressDrawable="@layout/custom_seekbar_layout"-->
+        <!--android:thumb="@drawable/drag_thumb"-->
+
+
+    </RelativeLayout>
+</LinearLayout>

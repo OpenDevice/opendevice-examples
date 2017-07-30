@@ -16,7 +16,7 @@ Demo integration with  OBD2 protocoll
 - Java 7 (or higher) 
 - [OBD2 Extension](https://github.com/OpenDevice/opendevice-extensions/tree/master/obd-connection)
 
-### Firmware:
+### Firmware (for ParkingAssist):
  
 See on folder */firmware*
 - ParkingAssist_Decoder (ESP8266 code for decode parking sensor data)

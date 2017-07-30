@@ -1,7 +1,5 @@
 package opendevice.io.iotcar;
 
-import android.content.IntentFilter;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -25,12 +21,9 @@ import br.com.criativasoft.opendevice.core.listener.DeviceListener;
 import br.com.criativasoft.opendevice.core.model.Device;
 import io.opendevice.ext.obd.OBDConnection;
 import opendevice.io.iotcar.utils.Constansts;
-import opendevice.io.iotcar.utils.WifiBroadcastReceiver;
 import opendevice.io.iotcar.views.FragmentDevices;
 import opendevice.io.iotcar.views.FragmentHome;
 import opendevice.io.iotcar.views.FragmentParking;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -69,15 +69,22 @@ void loop() {
     
     uint16_t parking_data = sensor.getData();
 
-    byte val = sensor.getDistance(1);
-    if(val != valueA){
-      valueA = sendData(SENSOR_A,val);
-    }
+    valueA = sensor.getDistance(1);
+    valueD = sensor.getDistance(4);
 
-    val = sensor.getDistance(4);
-    if(val != valueD){
-      valueD = sendData(SENSOR_D,val);
-    }
+    sendData(SENSOR_A,valueA);
+    delay(50);
+    sendData(SENSOR_D,valueD);
+    
+//    byte val = sensor.getDistance(1);
+//    if(val != valueA){
+//      valueA = sendData(SENSOR_A,val);
+//    }
+//
+//    val = sensor.getDistance(4);
+//    if(val != valueD){
+//      valueD = sendData(SENSOR_D,val);
+//    }
     
 //    printBinary(parking_data);
 //    Serial.print(">> 1=");

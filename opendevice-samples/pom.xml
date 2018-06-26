@@ -21,40 +21,47 @@
             <id>oss.sonatype.org-snapshot</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
+
+        <repository>
+            <id>Eclipse Paho Repo</id> <!-- MQTT Client -->
+            <url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
     </repositories>
 
 	<dependencies>
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-connection-stream</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-core</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-rest-ws-server</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-wasync-client</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-js-engine</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-js</artifactId>
             <version>${opendevice-version}</version>
             <type>war</type>
@@ -77,6 +84,14 @@
             <artifactId>jcommon</artifactId>
             <version>1.0.17</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 	<build>

@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.com.criativasoft.opendevice</groupId>
+    <groupId>io.opendevice</groupId>
     <artifactId>opendevice-3d-jmonkeyengine</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -35,12 +35,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-core</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-connection-stream</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
